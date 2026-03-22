@@ -15,12 +15,10 @@ def send_telegram(msg):
         print(f"Failed to send Telegram: {e}")
 
 def check_tickets():
-    # Make the bot look like a real person browsing
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
     }
     
-    # Add a random number to the URL to bypass server caching
     cache_buster = f"{URL}?v={random.randint(1, 100000)}"
 
     try:
@@ -29,7 +27,6 @@ def check_tickets():
         
         text = res.text.lower()
 
-        # Look for "Buy" instead of "Not Sold Out" for better accuracy
         if "buy" in text or "book" in text or "available" in text:
             send_telegram(f"🚨 TICKETS MIGHT BE LIVE! \nCheck now: {URL}")
             print("Alert sent!")
